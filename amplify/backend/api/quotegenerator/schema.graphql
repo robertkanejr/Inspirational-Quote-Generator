@@ -7,16 +7,14 @@
 type Query {
 	generateAQuote(input: AWSJSON!): String
 		# @auth(rules: [{ allow: public, provider: iam }])
-		@function(name: "insoquotelambda-${env}")
+		@function(name: "inspoquotelambda-${env}")
 }
 
 #Public data
-type QuoteAppData 
-  @model 
-# @auth(rules: [{ allow: public, provider: iam, operations: [read] }]) {
+type QuoteAppData @model {
+	# @auth(rules: [{ allow: public, provider: iam, operations: [read] }])
 	id: ID!
-	queryName: String! 
-    @index(name: "QuotesQueryName", queryField: "quotesQueryName")
+	queryName: String! @index(name: "QuotesQueryName", queryField: "quotesQueryName")
 	quotesGenerated: Int!
 	createdAt: String!
 	updatedAt: String!
