@@ -132,6 +132,7 @@ export const GenerateQuoteButton = styled.div`
 	-webkit-backdrop-filter: blur(20px);
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
+
 	//hover effect
 	&:hover {
 		filter: brightness(3);
