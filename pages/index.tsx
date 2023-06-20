@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
@@ -21,9 +21,43 @@ import {
 //Assets
 import LightningCloud from "../assets/lightning-cloud.png";
 import SunCloud from "../assets/cloud-and-sun.png";
+import { API } from "aws-amplify";
+import { quotesQueryName } from "@/src/graphql/queries";
+
+//interface for DynamoDB object
+interface UpdateQuoteInfoData {
+	id: string;
+	queryName: string;
+	quotesGenerated: Number;
+	createdAt: string;
+	updatedAt: string;
+}
+
+//type guard for fetch function
 
 export default function Home() {
 	const [numberOfQuotes, setNumberOfQuotes] = useState<Number | null>(0);
+
+	//function to fetch DynamoDB object (quotes generated)
+	const updateQuoteInfo = async () => {
+		try {
+			const response = await API.graphql<UpdateQuoteInfoData>({
+				query: quotesQueryName,
+				authMode: "AWS_IAM",
+				variables: {
+					queryName: "LIVE",
+				},
+			});
+			console.log("response", response);
+		} catch (error) {
+			console.log("Error getting quote data.", error);
+		}
+	};
+
+	useEffect(() => {
+		updateQuoteInfo();
+	}, []);
+
 	return (
 		<>
 			<Head>
