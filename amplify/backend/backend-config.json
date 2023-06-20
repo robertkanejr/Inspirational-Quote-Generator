@@ -7,7 +7,7 @@
           "additionalAuthenticationProviders": [
             {
               "apiKeyConfig": {
-                "apiKeyExpirationDate": "2023-06-27T02:30:14.227Z",
+                "apiKeyExpirationDate": "2023-06-27T02:57:15.637Z",
                 "apiKeyExpirationDays": 7,
                 "description": "API key for inspo quote generator"
               },
