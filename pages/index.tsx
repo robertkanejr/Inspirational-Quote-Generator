@@ -22,41 +22,40 @@ import {
 import LightningCloud from "../assets/lightning-cloud.png";
 import SunCloud from "../assets/cloud-and-sun.png";
 import { API } from "aws-amplify";
-import { quotesQueryName } from "@/src/graphql/queries";
+// import { quotesQueryName } from "@/src/graphql/queries";
 
-//interface for DynamoDB object
-interface UpdateQuoteInfoData {
-	id: string;
-	queryName: string;
-	quotesGenerated: Number;
-	createdAt: string;
-	updatedAt: string;
-}
+// //interface for DynamoDB object
+// interface UpdateQuoteInfoData {
+// 	id: string;
+// 	queryName: string;
+// 	quotesGenerated: Number;
+// 	createdAt: string;
+// 	updatedAt: string;
+// }
 
 //type guard for fetch function
-
 export default function Home() {
 	const [numberOfQuotes, setNumberOfQuotes] = useState<Number | null>(0);
 
-	//function to fetch DynamoDB object (quotes generated)
-	const updateQuoteInfo = async () => {
-		try {
-			const response = await API.graphql<UpdateQuoteInfoData>({
-				query: quotesQueryName,
-				authMode: "AWS_IAM",
-				variables: {
-					queryName: "LIVE",
-				},
-			});
-			console.log("response", response);
-		} catch (error) {
-			console.log("Error getting quote data.", error);
-		}
-	};
+	// //function to fetch DynamoDB object (quotes generated)
+	// const updateQuoteInfo = async () => {
+	// 	try {
+	// 		const response = await API.graphql<UpdateQuoteInfoData>({
+	// 			query: quotesQueryName,
+	// 			authMode: "AWS_IAM",
+	// 			variables: {
+	// 				queryName: "LIVE",
+	// 			},
+	// 		});
+	// 		console.log("response", response);
+	// 	} catch (error) {
+	// 		console.log("Error getting quote data.", error);
+	// 	}
+	// };
 
-	useEffect(() => {
-		updateQuoteInfo();
-	}, []);
+	// useEffect(() => {
+	// 	updateQuoteInfo();
+	// }, []);
 
 	return (
 		<>

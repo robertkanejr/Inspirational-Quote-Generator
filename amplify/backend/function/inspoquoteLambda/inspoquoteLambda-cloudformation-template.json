@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "inspoquotelambda",
+            "inspoQuoteLambda",
             {
               "Fn::Join": [
                 "",
                 [
-                  "inspoquotelambda",
+                  "inspoQuoteLambda",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "quotegeneratorLambdaRoled9772f82",
+            "quotegeneratorLambdaRole8c3d1912",
             {
               "Fn::Join": [
                 "",
                 [
-                  "quotegeneratorLambdaRoled9772f82",
+                  "quotegeneratorLambdaRole8c3d1912",
                   "-",
                   {
                     "Ref": "env"
