@@ -22,40 +22,62 @@ import {
 import LightningCloud from "../assets/lightning-cloud.png";
 import SunCloud from "../assets/cloud-and-sun.png";
 import { API } from "aws-amplify";
-// import { quotesQueryName } from "@/src/graphql/queries";
+import { quotesQueryName } from "@/src/graphql/queries";
+import { GraphQLResult } from "@aws-amplify/api-graphql";
 
-// //interface for DynamoDB object
-// interface UpdateQuoteInfoData {
-// 	id: string;
-// 	queryName: string;
-// 	quotesGenerated: Number;
-// 	createdAt: string;
-// 	updatedAt: string;
-// }
+//interface for DynamoDB object
+interface UpdateQuoteInfoData {
+	id: string;
+	queryName: string;
+	quotesGenerated: Number;
+	createdAt: string;
+	updatedAt: string;
+}
 
 //type guard for fetch function
+function isGraphQLResultForquotesQueryName(response: any): response is GraphQLResult<{
+	quotesQueryName: {
+		items: [UpdateQuoteInfoData];
+	};
+}> {
+	return response.data && response.data.quotesQueryName && response.data.quotesQueryName.items;
+}
+
 export default function Home() {
 	const [numberOfQuotes, setNumberOfQuotes] = useState<Number | null>(0);
 
-	// //function to fetch DynamoDB object (quotes generated)
-	// const updateQuoteInfo = async () => {
-	// 	try {
-	// 		const response = await API.graphql<UpdateQuoteInfoData>({
-	// 			query: quotesQueryName,
-	// 			authMode: "AWS_IAM",
-	// 			variables: {
-	// 				queryName: "LIVE",
-	// 			},
-	// 		});
-	// 		console.log("response", response);
-	// 	} catch (error) {
-	// 		console.log("Error getting quote data.", error);
-	// 	}
-	// };
+	//function to fetch DynamoDB object (quotes generated)
+	const updateQuoteInfo = async () => {
+		try {
+			const response = await API.graphql<UpdateQuoteInfoData>({
+				query: quotesQueryName,
+				authMode: "AWS_IAM",
+				variables: {
+					queryName: "LIVE",
+				},
+			});
+			// console.log("response", response);
 
-	// useEffect(() => {
-	// 	updateQuoteInfo();
-	// }, []);
+			//Create type guards
+			if (!isGraphQLResultForquotesQueryName(response)) {
+				throw new Error("Unexpected response from API.graphql");
+			}
+			if (!response.data) {
+				throw new Error("Response data is undefined");
+			}
+
+			//Get received number of quotes from DynamoDB
+			const receivedNumberOfQuotes = response.data.quotesQueryName.items[0].quotesGenerated;
+			//set number of quotes displayed
+			setNumberOfQuotes(receivedNumberOfQuotes);
+		} catch (error) {
+			console.log("Error getting quote data.", error);
+		}
+	};
+
+	useEffect(() => {
+		updateQuoteInfo();
+	}, []);
 
 	return (
 		<>
