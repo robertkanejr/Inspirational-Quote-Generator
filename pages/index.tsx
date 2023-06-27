@@ -91,6 +91,17 @@ export default function Home() {
 	const handleOpenGenerator = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
 		setOpenGenerator(true);
+		setProcessingQuote(true);
+		try {
+			//Run Lambda function
+			// setProcessingQuote(false);
+			setTimeout(() => {
+				setProcessingQuote(false);
+			}, 3000);
+		} catch (error) {
+			console.log("Error generating quote", error);
+			setProcessingQuote(false);
+		}
 	};
 
 	return (
@@ -129,10 +140,8 @@ export default function Home() {
 							</CustomLink>
 							.
 						</QuoteGeneratorSubTitle>
-						<GenerateQuoteButton>
-							<GenerateQuoteButtonText onClick={handleOpenGenerator}>
-								Generate Quote
-							</GenerateQuoteButtonText>
+						<GenerateQuoteButton onClick={handleOpenGenerator}>
+							<GenerateQuoteButtonText>Generate Quote</GenerateQuoteButtonText>
 						</GenerateQuoteButton>
 					</QuoteGeneratorInnerCon>
 				</QuoteGeneratorCon>

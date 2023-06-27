@@ -1,32 +1,33 @@
 {
-  "name": "quote-generator",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@aws-amplify/ui-react": "^5.0.1",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.13.4",
-    "@types/node": "20.2.5",
-    "@types/react": "18.2.9",
-    "@types/react-dom": "18.2.4",
-    "aws-amplify": "^5.3.0",
-    "eslint": "8.42.0",
-    "eslint-config-next": "13.4.4",
-    "next": "13.4.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "styled-components": "^5.3.1",
-    "typescript": "5.1.3"
-  },
-  "devDependencies": {
-    "@types/styled-components": "^5.1.26",
-    "babel-plugin-styled-components": "^2.1.3"
-  }
+	"name": "quote-generator",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@aws-amplify/ui-react": "^5.0.2",
+		"@emotion/react": "^11.11.1",
+		"@emotion/styled": "^11.11.0",
+		"@mui/material": "^5.13.6",
+		"@types/node": "20.3.2",
+		"@types/react": "18.2.14",
+		"@types/react-dom": "18.2.6",
+		"aws-amplify": "^5.2.5",
+		"eslint": "^8.43.0",
+		"eslint-config-next": "^13.4.7",
+		"next": "13.4.7",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"react-lottie-player": "^1.5.4",
+		"styled-components": "^5.3.11",
+		"typescript": "5.1.3"
+	},
+	"devDependencies": {
+		"@types/styled-components": "^5.1.26",
+		"babel-plugin-styled-components": "^2.1.4"
+	}
 }
