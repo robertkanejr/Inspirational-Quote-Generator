@@ -23,8 +23,17 @@ import QuoteGeneratorModal from "@/components/QuoteGenerator";
 import LightningCloud from "../assets/lightning-cloud.png";
 import SunCloud from "../assets/cloud-and-sun.png";
 import { API } from "aws-amplify";
-import { quotesQueryName } from "@/src/graphql/queries";
+import { generateAQuote, quotesQueryName } from "@/src/graphql/queries";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
+
+//interface for for appsync to Lambda JSON response
+interface GenerateAQuoteData {
+	generateAQuote: {
+		statusCode: number;
+		headers: { [key: string]: string };
+		body: string;
+	};
+}
 
 //interface for DynamoDB object
 interface UpdateQuoteInfoData {
@@ -86,6 +95,8 @@ export default function Home() {
 	//Functions for quote generator modal
 	const handleCloseGenerator = () => {
 		setOpenGenerator(false);
+		setProcessingQuote(false);
+		setQuoteReceived(null);
 	};
 
 	const handleOpenGenerator = async (e: React.SyntheticEvent) => {
@@ -94,7 +105,34 @@ export default function Home() {
 		setProcessingQuote(true);
 		try {
 			//Run Lambda function
-			// setProcessingQuote(false);
+			const runFunction = "runFunction";
+			const runFunctionStringified = JSON.stringify(runFunction);
+			const response = await API.graphql<GenerateAQuoteData>({
+				query: generateAQuote,
+				authMode: "AWS_IAM",
+				variables: {
+					input: runFunctionStringified,
+				},
+			});
+			//Stringify JSON response from Lambda function
+			const responseStringified = JSON.stringify(response);
+			const responseReStringified = JSON.stringify(responseStringified);
+			//Find body, extract base64 string, and convert to array
+			const bodyIndex = responseReStringified.indexOf("body=") + 5;
+			const bodyAndBase64 = responseReStringified.substring(bodyIndex);
+			const bodyArray = bodyAndBase64.split(",");
+			//Get first value from array
+			const body = bodyArray[0];
+			console.log(body);
+			//Set quote received to body
+			setQuoteReceived(body);
+
+			//End State: Set processing quote to false once response is received
+			setProcessingQuote(false);
+
+			//Fetch if any new quotes were generated from counter
+			updateQuoteInfo();
+
 			setTimeout(() => {
 				setProcessingQuote(false);
 			}, 3000);
