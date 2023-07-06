@@ -132,10 +132,6 @@ export default function Home() {
 
 			//Fetch if any new quotes were generated from counter
 			updateQuoteInfo();
-
-			setTimeout(() => {
-				setProcessingQuote(false);
-			}, 3000);
 		} catch (error) {
 			console.log("Error generating quote", error);
 			setProcessingQuote(false);
