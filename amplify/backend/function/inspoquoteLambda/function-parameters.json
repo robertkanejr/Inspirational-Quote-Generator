@@ -1,11 +1,8 @@
 {
-  "lambdaLayers": [],
-  "permissions": {
-    "storage": {
-      "QuoteAppData:@model(appsync)": [
-        "read",
-        "update"
-      ]
-    }
-  }
+	"lambdaLayers": [],
+	"permissions": {
+		"storage": {
+			"QuoteAppData:@model(appsync)": ["read", "update"]
+		}
+	}
 }
