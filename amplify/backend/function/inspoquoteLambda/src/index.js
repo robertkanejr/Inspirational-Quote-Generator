@@ -19,7 +19,7 @@ const fetch = require("node-fetch");
 const path = require("path");
 const fs = require("fs");
 
-//Function update DynamoDB table
+//Function to update DynamoDB table
 async function updateQuoteDDBObject() {
 	const quoteTableName = process.env.API_QUOTEGENERATOR_QUOTEAPPDATATABLE_NAME;
 	const quoteObjectID = "12232-234234-234234234-234234234";
