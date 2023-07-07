@@ -88,7 +88,7 @@ exports.handler = async (event) => {
 		}
 		console.log(tspanElements);
 
-		// Construct the SVG
+		// Construct the SVG Image
 		const svgImage = `
         <svg width="${width}" height="${height}" >
           <style>
