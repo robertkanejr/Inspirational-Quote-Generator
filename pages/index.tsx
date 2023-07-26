@@ -123,7 +123,7 @@ export default function Home() {
 			const bodyArray = bodyAndBase64.split(",");
 			//Get first value from array
 			const body = bodyArray[0];
-			console.log(body);
+			// console.log(body);
 			//Set quote received to body
 			setQuoteReceived(body);
 

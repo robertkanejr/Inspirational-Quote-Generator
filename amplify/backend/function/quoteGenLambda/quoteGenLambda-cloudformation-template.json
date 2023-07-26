@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"12.1.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"12.2.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -51,12 +51,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "inspoQuoteLambda",
+            "quoteGenLambda",
             {
               "Fn::Join": [
                 "",
                 [
-                  "inspoQuoteLambda",
+                  "quoteGenLambda",
                   "-",
                   {
                     "Ref": "env"
@@ -111,7 +111,7 @@
             "Arn"
           ]
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Layers": [],
         "Timeout": 25
       }
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "quotegeneratorLambdaRole8c3d1912",
+            "quotegeneratorLambdaRole9677abaa",
             {
               "Fn::Join": [
                 "",
                 [
-                  "quotegeneratorLambdaRole8c3d1912",
+                  "quotegeneratorLambdaRole9677abaa",
                   "-",
                   {
                     "Ref": "env"
@@ -222,8 +222,10 @@
                 "dynamodb:Describe*",
                 "dynamodb:Scan",
                 "dynamodb:Query",
+                "dynamodb:PartiQLSelect",
                 "dynamodb:Update*",
-                "dynamodb:RestoreTable*"
+                "dynamodb:RestoreTable*",
+                "dynamodb:PartiQLUpdate"
               ],
               "Resource": [
                 {
